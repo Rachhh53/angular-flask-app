@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<table>
+    <thread>
+        <tr>
+            <th>Record</th>
+        </tr>
+    </thread>
+
+
+<tbody>
+{% for row in results %}
+<tr>
+    <td> {{ row[0] }}</td>
+</tr>
+
+{% endfor %}
+</tbody>
+</table>
