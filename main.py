@@ -7,23 +7,25 @@ from google.oauth2 import service_account
 
 app = Flask(__name__)
 # TODO(developer): Set key_path to the path to the service account key
-#                  file.
-key_path = "durable-melody-328621-3e36bc056967.json"
+#                  file. TESTING ONLY
+#key_path = "durable-melody-328621-3e36bc056967.json"
 
-credentials = service_account.Credentials.from_service_account_file(
-    key_path, scopes=["https://www.googleapis.com/auth/cloud-platform"],
-)
+# for TESTING ONLY
+#credentials = service_account.Credentials.from_service_account_file(
+#    key_path, scopes=["https://www.googleapis.com/auth/cloud-platform"],
+#)
 
-# Construct a BigQuery client object.
-client = bigquery.Client(credentials=credentials, project=credentials.project_id, )
+# for TESTING ONLY
+#client = bigquery.Client(credentials=credentials, project=credentials.project_id, )
+client = bigquery.Client()
 
-# TODO(developer): Set table_id to the ID of the table
-# table_id = "durable-melody-328621.bqml_tutorial.londom_tutorial_clusters"
+# for loading table
+#table_id = "black-nucleus-329901.bqml_tutorial.london_tutorial_clusters"
 
 query_job = client.query(
     """
     SELECT *
-    FROM `durable-melody-328621.bqml_tutorial.london_tutorial_clusters`
+    FROM `black-nucleus-329901.bqml_tutorial.london_tutorial_clusters`
     LIMIT 10"""
 )
 
