@@ -4,6 +4,7 @@ import json
 from flask import Flask, jsonify, request
 from google.cloud import bigquery
 from google.oauth2 import service_account
+import google.auth
 
 app = Flask(__name__)
 # TODO(developer): Set key_path to the path to the service account key
@@ -17,6 +18,8 @@ app = Flask(__name__)
 
 # for TESTING ONLY
 #client = bigquery.Client(credentials=credentials, project=credentials.project_id, )
+
+# for DEPLOY
 client = bigquery.Client()
 
 # for loading table
