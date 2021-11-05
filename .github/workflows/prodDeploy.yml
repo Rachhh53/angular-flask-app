@@ -47,6 +47,6 @@ jobs:
         with:
           project_id: ${{ secrets.GCP_PROJECT }}
           credentials: ${{ secrets.GCP_CREDENTIALS }}
-          version: default
+          version: 20211105t144600
           deliverables: app.yaml
           promote: true
