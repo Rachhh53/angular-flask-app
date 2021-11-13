@@ -1,0 +1,14 @@
+<div style="text-align:center">
+  <h1>Results</h1>
+</div>
+<h2>Here are the results from BigQuery: </h2>
+<ul>
+  <li *ngFor="let cluster of clusters">
+    CENTROID_ID: {{cluster.CENTROID_ID}}
+    Distance from city center: {{cluster.distance_from_city_center}}
+    Duration: {{cluster.duration}}
+    Number of trips: {{cluster.num_trips}}
+    Station name: {{cluster.station_name}}
+  </li>
+</ul>
+<router-outlet></router-outlet>

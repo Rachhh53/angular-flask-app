@@ -2,3 +2,7 @@ Flask
 gunicorn==20.1.0
 google-cloud-bigquery
 google
+flask-cors
+flask_restful
+pandas
+pyarrow
