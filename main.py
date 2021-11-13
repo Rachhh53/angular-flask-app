@@ -16,7 +16,7 @@ app = Flask(__name__)
 #Session(app)
 api = Api(app)
 """ app.config['CORS_HEADERS'] = "Content-Type"
-app.config['CORS_RESOURCES'] = {r"/*": {"origins": "*"}} """
+app.config['CORS_RESOURCES'] = {r"/*": {"origins":["http://localhost:4200", "https://angular-ui-dev-dot-durable-melody-328621.uk.r.appspot.com/"]}} """
 
 #cors = CORS(app)
 CORS(app, resources={r"*": {"origins": "*"}})

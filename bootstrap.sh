@@ -11,3 +11,6 @@ flask run -h 0.0.0.0
 
 # execute script in the background
 #./bootstrap.sh &
+
+### also do this at some point ###
+# py -m pip install -r requirements.txt
