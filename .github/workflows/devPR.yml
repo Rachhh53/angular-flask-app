@@ -66,11 +66,9 @@ jobs:
     steps:
       - name: Checkout develop
         uses: actions/checkout@v2
-        working-directory: ./front-end/analytics-app/nginx-hosting
 
       - name: Deploy Backend to App Engine Develop
         uses: google-github-actions/deploy-appengine@v0.4.0
-        working-directory: ./front-end/analytics-app/nginx-hosting
         with:
           project_id: ${{ secrets.GCP_PROJECT }}
           credentials: ${{ secrets.GCP_CREDENTIALS }}
