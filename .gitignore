@@ -3,3 +3,5 @@
 /durable-melody-328621-3e36bc056967.json
 /env
 /__pycache__
+/.vscode
+/nginx-hosting/dist

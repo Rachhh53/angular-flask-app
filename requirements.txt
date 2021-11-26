@@ -6,3 +6,6 @@ flask-cors
 flask_restful
 pandas
 pyarrow
+google-cloud-bigquery-storage
+pylint
+pylint-flask

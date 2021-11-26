@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, from } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-//import 'rxjs/add/operator/catch';
-import { API_URL } from './env';
-//import {Exam} from './exam.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class BigqueryApiService {
@@ -31,8 +29,7 @@ export class BigqueryApiService {
       } */
       getResults() : Observable<any> {
         return this.http
-          .get(`${API_URL}/`)
-          // .catch(BigqueryApiService._handleError)
+          .get(`${environment.apiUrl}/`)
           .pipe(
             catchError(BigqueryApiService._handleError)
           )
