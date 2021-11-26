@@ -67,15 +67,6 @@ jobs:
       - name: Checkout develop
         uses: actions/checkout@v2
 
-      - name: Deploy Backend to App Engine Develop
-        uses: google-github-actions/deploy-appengine@v0.4.0
-        with:
-          project_id: ${{ secrets.GCP_PROJECT }}
-          credentials: ${{ secrets.GCP_CREDENTIALS }}
-          deliverables: app.yaml
-          version: develop
-          promote: false 
-
       - name: Download frontend build
         uses: actions/download-artifact@v1
         with:
