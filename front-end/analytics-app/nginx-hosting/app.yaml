@@ -1,0 +1,24 @@
+runtime: custom
+env: flex
+service: angular-ui-dev
+threadsafe: true
+automatic_scaling:
+  min_num_instances: 1
+  max_num_instances: 2
+
+env_variables:
+  API_URL: "https://webapi-dev.appname.com"
+
+handlers:
+  - url: /
+    static_dir: dist
+
+skip_files:
+  - e2e/
+  - node_modules/
+  - src/
+  - coverage
+  - ^(.*/)?\..*$
+  - ^(.*/)?.*\.json$
+  - ^(.*/)?.*\.md$
+  - ^LICENSE

@@ -23,30 +23,87 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      # - uses: actions/checkout@v2
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      # Build and set up backend
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Install dependencies
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout master
-        uses: actions/checkout@master
-        # uses: actions/checkout@v2
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-      - name: Deploy to App Engine Prod
+      - name: Analyze Code with pylint
+        run: |
+          find . -name '*.py' -exec pylint {} \;
+      
+      # Build and set up frontend
+      - name: Set up Node 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - name: Install dependencies
+        working-directory: ./front-end/analytics-app
+        run: npm install
+      
+      - name: Build Angular frontend
+        working-directory: ./front-end/analytics-app
+        run: yarn ng build --configuration production
+
+      - name: Archive build
+        if: success()
+        uses: actions/upload-artifact@v1
+        with:
+          name: deploy_dist
+          path: ./front-end/analytics-app/nginx-hosting/dist
+
+  deploy:
+    # Backend
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout develop
+        uses: actions/checkout@v2
+
+      - name: Deploy Backend to App Engine Develop
         uses: google-github-actions/deploy-appengine@v0.4.0
         with:
           project_id: ${{ secrets.GCP_PROJECT }}
           credentials: ${{ secrets.GCP_CREDENTIALS }}
-          version: 20211105t144600
           deliverables: app.yaml
-          promote: true
+          version: develop
+          promote: false 
+
+      - name: Download frontend build
+        uses: actions/download-artifact@v1
+        with:
+          name: deploy_dist
+
+      # Setup gcloud CLI
+      - name: Setup gcloud CLI
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+          export_default_credentials: true
+    
+      # Configure Docker with Credentials
+      - name: Configure Docker
+        working-directory: ./front-end/analytics-app/nginx-hosting
+        run: |
+          gcloud auth configure-docker
+      
+      # Build the Docker image
+      - name: Build & Publish
+        working-directory: ./front-end/analytics-app/nginx-hosting
+        run: |
+          gcloud config set project ${{ secrets.GCP_PROJECT }}
+          gcloud builds submit --tag us.gcr.io/${{ secrets.GCP_PROJECT }}/${{ secrets.GCP_APPLICATION_PROD }}
+      
+      - name: Deploy Image to GAE
+        working-directory: ./front-end/analytics-app/nginx-hosting
+        run: |
+          gcloud app deploy --image-url us.gcr.io/${{ secrets.GCP_PROJECT }}/${{ secrets.GCP_APPLICATION_PROD }}
