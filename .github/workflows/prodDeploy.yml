@@ -66,10 +66,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Checkout develop
+      - name: Checkout main
         uses: actions/checkout@v2
 
-      - name: Deploy Backend to App Engine Develop
+      - name: Deploy Backend to App Engine Prod
         uses: google-github-actions/deploy-appengine@v0.4.0
         with:
           project_id: ${{ secrets.GCP_PROJECT }}
