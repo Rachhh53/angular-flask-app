@@ -78,13 +78,11 @@ jobs:
 
       - name: Download frontend build
         uses: actions/download-artifact@v1
-        working-directory: ./front-end/analytics-app/nginx-hosting
         with:
           name: deploy_dist
 
       # Setup gcloud CLI
       - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
-        working-directory: ./front-end/analytics-app/nginx-hosting
         with:
           service_account_email: ${{ secrets.GCP_EMAIL }}
           service_account_key: ${{ secrets.GCP_CREDENTIALS }}
