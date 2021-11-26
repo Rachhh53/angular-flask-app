@@ -75,8 +75,9 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT }}
           credentials: ${{ secrets.GCP_CREDENTIALS }}
           deliverables: app.yaml
-          version: develop
-          promote: false 
+          version: 20211105t144600
+          deliverables: app.yaml
+          promote: true
 
       - name: Download frontend build
         uses: actions/download-artifact@v1
