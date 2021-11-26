@@ -96,12 +96,12 @@ jobs:
       # Build the Docker image
       # gcloud builds submit --tag gcr.io/${{ secrets.GCP_PROJECT }}/${{ secrets.GCP_APPLICATION_DEV }}
       - name: Build & Publish
-        path: ./front-end/analytics-app/nginx-hosting
+        working-directory: ./front-end/analytics-app/nginx-hosting
         run: |
           gcloud config set project ${{ secrets.GCP_PROJECT }}
           gcloud builds submit
       
       - name: Deploy Image to GAE
-        path: ./front-end/analytics-app/nginx-hosting
+        working-directory: ./front-end/analytics-app/nginx-hosting
         run: |
           gcloud app deploy --image-url us.gcr.io/${{ secrets.GCP_PROJECT }}/${{ secrets.GCP_APPLICATION_DEV }}
