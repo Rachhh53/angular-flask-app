@@ -81,6 +81,7 @@ jobs:
     
       - name: Deploy Backend to App Engine Develop
         run: |
+          gcloud config set project ${{ secrets.GCP_PROJECT }}
           gcloud app deploy --version develop --no-promote
     
       # Configure Docker with Credentials
@@ -93,7 +94,6 @@ jobs:
       - name: Build & Publish
         working-directory: ./front-end/analytics-app/nginx-hosting
         run: |
-          gcloud config set project ${{ secrets.GCP_PROJECT }}
           gcloud builds submit --tag us.gcr.io/${{ secrets.GCP_PROJECT }}/${{ secrets.GCP_APPLICATION_DEV }}
       
       - name: Deploy Image to GAE
