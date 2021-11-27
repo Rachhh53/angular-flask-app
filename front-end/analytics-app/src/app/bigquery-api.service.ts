@@ -14,19 +14,6 @@ export class BigqueryApiService {
         return throwError(() => err.message || 'Error: Unable to complete request.');
     }
 
-/*     getResults(): Observable<any> {
-        return from(
-          fetch(
-            `${API_URL}`, // the url you are trying to access
-            {
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              method: 'GET', // GET, POST, PUT, DELETE
-              mode: 'no-cors' // the most important option
-            }
-          ));
-      } */
       getResults() : Observable<any> {
         return this.http
           .get(`${environment.apiUrl}/`)

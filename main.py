@@ -17,10 +17,24 @@ CORS(app, resources={r"*": {"origins": "*"}})
 # for DEPLOY
 client = bigquery.Client()
 
+######################BEGIN TESTING ONLY################################
+# Set key_path to the path to the service account key file.
+#KEY_PATH = "durable-melody-328621-3e36bc056967.json"
+
+#credentials = service_account.Credentials.from_service_account_file(
+#    KEY_PATH, scopes=["https://www.googleapis.com/auth/cloud-platform"],
+#)
+
+#client = bigquery.Client(credentials=credentials, project=credentials.project_id, )
+######################END TESTING ONLY################################
+
+# for loading table
+#table_id = "black-nucleus-329901.bqml_tutorial.london_tutorial_clusters"
+
 query_job = client.query(
     """
     SELECT *
-    FROM `black-nucleus-329901.bqml_tutorial.london_tutorial_clusters`
+    FROM `durable-melody-328621.bqml_tutorial.london_tutorial_clusters`
     LIMIT 100
     """
 )
