@@ -34,7 +34,7 @@ client = bigquery.Client()
 query_job = client.query(
     """
     SELECT *
-    FROM `durable-melody-328621.bqml_tutorial.london_tutorial_clusters`
+    FROM `black-nucleus-329901.bqml_tutorial.london_tutorial_clusters`
     LIMIT 100
     """
 )

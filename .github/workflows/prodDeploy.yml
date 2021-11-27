@@ -69,16 +69,6 @@ jobs:
       - name: Checkout main
         uses: actions/checkout@v2
 
-      - name: Deploy Backend to App Engine Prod
-        uses: google-github-actions/deploy-appengine@v0.4.0
-        with:
-          project_id: ${{ secrets.GCP_PROJECT }}
-          credentials: ${{ secrets.GCP_CREDENTIALS }}
-          deliverables: app.yaml
-          version: 20211105t144600
-          deliverables: app.yaml
-          promote: true
-
       - name: Download frontend build
         uses: actions/download-artifact@v1
         with:
@@ -90,6 +80,11 @@ jobs:
         with:
           service_account_key: ${{ secrets.GCP_CREDENTIALS }}
           export_default_credentials: true
+
+      - name: Deploy Backend to App Engine Develop
+        run: |
+          gcloud config set project ${{ secrets.GCP_PROJECT }}
+          gcloud app deploy --version 20211105t144600
     
       # Configure Docker with Credentials
       - name: Configure Docker
