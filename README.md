@@ -4,3 +4,6 @@ Angular Client <br>
 Flask back-end <br>
 Deployed to Google Cloud platform Google App Engine serverless product <br>
 Uses BigQuery ML clustering <br>
+<br>
+<br>
+Current deployment is turned off
